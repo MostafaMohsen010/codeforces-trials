@@ -1,5 +1,4 @@
 #include<iostream>
-#include<vector>
 #include<string>
 using namespace std;
 int* Addexeption(char* a, char* b, int no_exep);
