@@ -6,9 +6,9 @@ int* Addexeption(char* a, char* b, int no_exep);
 string MyCompare(string x, string y, int* p, int size);
 int main()
 {
-	char exe1[2] = { 'b','i' };
-	char exe2[2] = { 'p','e' };
-	int* p_exe = Addexeption(exe1, exe2, 2);
+	char exe1[8] = { 'b','b','i','i','B','B','I','I'};
+	char exe2[8] = { 'p','P','e','E','P','p','E','e'};
+	int* p_exe = Addexeption(exe1, exe2, 8);
 	unsigned short n;
 	cin >> n;
 	string* run = new string[n*2];
@@ -22,15 +22,13 @@ int main()
 		cin.ignore();
 		cin >> test2;
 		run[i+1] = test2;
-		//cout << "run [" << i << "] = " << run[i] << "and run [" << i + 1 << "] = " << run[i + 1] << endl;
-		
 		i++;
 		
 	}
 	for (int i = 0;i < n*2;i+=2)
 	{
-		//cout << "comparing"<<"run [" << i << "] = " << run[i] << "with run [" << i + 1 << "] = " << run[i + 1] << endl;
-		string result = MyCompare(run[i], run[i+1], p_exe, 2);
+		
+		string result = MyCompare(run[i], run[i+1], p_exe, 8);
 		cout << result << endl;
 	}
 	delete[]run;
@@ -39,11 +37,11 @@ int main()
 }
 string MyCompare(string x, string y,int*p,int size) 					//this pointer is to add a custom exeption list in main func for compare 
 {											// where u will enter for example x  = "b p" this means that b===p (case equality) will be true
-	string result = "YES";								// assumed size of list is 2 characters or size of exeption list
+	string result = "Yes";								// assumed size of list is 2 characters or size of exeption list
 	bool test1 = 0, test2 = 0;
 		if (x.length() != y.length())
 		{
-			result = "NO";
+			result = "No";
 			//cout << "because of length mismatch" << endl;
 			return result;
 		}
@@ -64,12 +62,18 @@ string MyCompare(string x, string y,int*p,int size) 					//this pointer is to ad
 						//cout << "exeption is caught at " << x[i] << " and " << y[i] << endl;
 						if (!(test1 | test2))
 						{
-							result = "NO";
+							result = "No";
 							return result;
 						}
 					}
 				}
-				
+				if (int(x[i]) - int(y[i]) != 0&&!(test2|test1))
+				{
+					result = "No";
+					return result;
+				}
+				test1 = 0;
+				test2 = 0;
 			}
 		}
 		return result;
